@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "Exo2";
+  src: url("/fonts/Exo2-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

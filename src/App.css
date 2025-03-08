@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.black-hole {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-image: url('/blackhole.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
