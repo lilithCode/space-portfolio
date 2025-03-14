@@ -9,6 +9,7 @@ export default defineConfig({
     historyApiFallback: true,
   },
   build: {
+    base: '/Portfolio/',  
     rollupOptions: {
       output: {
         manualChunks: {
@@ -17,6 +18,6 @@ export default defineConfig({
         },
       },
     },
-    chunkSizeWarningLimit: 1000, 
+    chunkSizeWarningLimit: 1000,
   },
 });
