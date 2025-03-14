@@ -1,11 +1,19 @@
 import { Canvas } from "@react-three/fiber";
-import WarpTunnel from "./WarpEffect";
+import React, { Suspense, lazy } from "react";
+
+
+const WarpTunnel = lazy(() => import("./WarpEffect"));
 
 const WarpScreen = ({ onComplete }) => {
+
   return (
+    
+
     <div className="fixed top-0 left-0 w-full h-full bg-black z-50">
       <Canvas>
-        <WarpTunnel onComplete={onComplete} />
+        <Suspense fallback={null}>
+          <WarpTunnel onComplete={onComplete} />
+        </Suspense>
       </Canvas>
     </div>
   );

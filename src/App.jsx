@@ -4,16 +4,8 @@ import { OrbitControls } from "@react-three/drei";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import "./App.css";
-import React, {
-  Suspense,
-  lazy,
-  useState,
-  useEffect,
-} from "react";
-import {
-  NavigationProvider,
-  useNavigation,
-} from "./components/NavigationContext";
+import React, { Suspense, lazy, useState, useEffect } from "react";
+import { NavigationProvider, useNavigation } from "./components/NavigationContext";
 
 const WarpTunnel = lazy(() => import("./components/WarpEffect"));
 const RotatingStars = lazy(() => import("./components/RotatingStars"));

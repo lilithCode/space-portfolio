@@ -13,6 +13,7 @@ const Loader = () => {
           Loading...{progress.toFixed(0)}%
         </p>
       </div>
+      
     </Html>
   );
 };

@@ -3,22 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://lilithCode.github.io/Portfolio/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@react-spring/three": "^9.7.5",
     "@react-three/drei": "^10.0.4",
-    "@react-three/fiber": "^9.0.4",
+    "@react-three/fiber": "^8.18.0",
     "@tailwindcss/vite": "^4.0.9",
     "framer-motion": "^12.5.0",
     "gsap": "^3.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-reconciler": "^0.31.0",
     "react-router-dom": "^7.2.0",
     "react-tsparticles": "^2.12.2",
     "tailwindcss": "^4.0.9",
@@ -29,13 +31,15 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
+    "gh-pages": "^6.3.0",
     "globals": "^16.0.0",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vite-plugin-html": "^3.2.2"
   }
 }
