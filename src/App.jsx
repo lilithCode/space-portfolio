@@ -1,9 +1,19 @@
-import React, { Suspense, lazy, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Loader from "./components/Loader";
+import Navbar from "./components/Navbar";
 import "./App.css";
+import React, {
+  Suspense,
+  lazy,
+  useState,
+  useEffect,
+} from "react";
+import {
+  NavigationProvider,
+  useNavigation,
+} from "./components/NavigationContext";
 
 const WarpTunnel = lazy(() => import("./components/WarpEffect"));
 const RotatingStars = lazy(() => import("./components/RotatingStars"));
@@ -13,48 +23,48 @@ const AboutPlanet = lazy(() => import("./components/AboutPlanet"));
 const ProjectPlanet = lazy(() => import("./components/ProjectPlanet"));
 const ContactPlanet = lazy(() => import("./components/ContactPlanet"));
 const SkillsPlanet = lazy(() => import("./components/SkillsPlanet"));
-const About = lazy(() => import("./components/Aboutme"));
+const About = lazy(() => import("./components/AboutMe"));
+const Project = lazy(() => import("./components/ProjectsPage"));
+const Contact = lazy(() => import("./components/Contact"));
+const Skills = lazy(() => import("./components/Skills"));
 
 function Scene() {
   const location = useLocation();
-  const [showModel, setShowModel] = useState(false);
+  const { isNavigating, navigate } = useNavigation();
   const [key, setKey] = useState(0);
+  const [showModel, setShowModel] = useState(false);
 
   useEffect(() => {
-    document.body.style.cursor = "none";
-    return () => {
-      document.body.style.cursor = "default";
-    };
-  }, []);
-
-  useEffect(() => {
-    setShowModel(false);
     setKey((prevKey) => prevKey + 1);
-     <WarpTunnel  onComplete={handleWarpComplete} />;
-  }, [location.pathname]);
-
-  const handleWarpComplete = () => {
     setShowModel(true);
-  };
+  }, [location.pathname, isNavigating]);
+
+  useEffect(() => {
+    import("./components/AboutMe");
+    import("./components/ProjectsPage");
+    import("./components/Skills");
+    import("./components/Contact");
+  }, []);
 
   return (
     <div className="bg-black w-full h-screen">
+      <Navbar />
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
         <ambientLight intensity={1} />
         <directionalLight position={[10, 10, 10]} intensity={5} />
         <Suspense fallback={<Loader />}>
           {!showModel && (
-            <WarpTunnel key={key} onComplete={handleWarpComplete} />
+            <WarpTunnel key={key} onComplete={() => setShowModel(true)} />
           )}
-          {showModel && (
+          {!isNavigating && showModel && (
             <>
               <SpacecraftModel />
               <RotatingStars />
               <HolographicMsg />
-              <AboutPlanet />
-              <ProjectPlanet />
-              <SkillsPlanet />
-              <ContactPlanet />
+              <AboutPlanet onClick={() => navigate('/about')} />
+              <ProjectPlanet onClick={() => navigate('/projects')} />
+              <SkillsPlanet onClick={() => navigate('/skills')} />
+              <ContactPlanet onClick={() => navigate('/contact')} />
             </>
           )}
         </Suspense>
@@ -67,12 +77,18 @@ function Scene() {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Scene />} />
-        <Route path="/about" element={<About/>} />
-        <Route path="/projects" element={<ProjectPlanet />} />
-        <Route path="/contact" element={<Scene />} />
-      </Routes>
+      <NavigationProvider>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<Scene />} />
+            <Route path="/home" element={<Scene />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Project />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </Suspense>
+      </NavigationProvider>
     </BrowserRouter>
   );
 }

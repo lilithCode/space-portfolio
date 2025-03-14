@@ -1,7 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap');
 @import "tailwindcss";
-@font-face {
-  font-family: "Exo2";
-  src: url("/fonts/Exo2-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+
+.space-text {
+  font-family: 'Exo 2', sans-serif;
+  background: linear-gradient(90deg, #B069DB, #4A90E2, #B069DB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

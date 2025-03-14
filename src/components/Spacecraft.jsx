@@ -1,8 +1,8 @@
-import { useRef, useEffect, useState ,useMemo} from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Text } from "@react-three/drei";
 import * as THREE from "three";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "./NavigationContext";
 
 useGLTF.preload("/spaceship.glb");
 
@@ -17,29 +17,37 @@ function SpacecraftModel() {
   const [message, setMessage] = useState("");
   const [displayedText, setDisplayedText] = useState("");
   const messageRef = useRef("");
-  const navigate = useNavigate();
+  const { navigate } = useNavigation();
 
-  const planets = useMemo(() => [
-    { name: "About Planet", position: [3, -1, 1], radius: 1, route: "/about" },
-    {
-      name: "Project Planet",
-      position: [-4, 1, 1],
-      radius: 1,
-      route: "/projects",
-    },
-    {
-      name: "Skills Planet",
-      position: [4, 2, 1],
-      radius: 1.5,
-      route: "/skills",
-    },
-    {
-      name: "Contact Planet",
-      position: [-2, -1, 1],
-      radius: 0.6,
-      route: "/contact",
-    },
-  ], []);
+  const planets = useMemo(
+    () => [
+      {
+        name: "About Planet",
+        position: [3, -1, 1],
+        radius: 1,
+        route: "/about",
+      },
+      {
+        name: "Project Planet",
+        position: [-4, 1, 1],
+        radius: 1,
+        route: "/projects",
+      },
+      {
+        name: "Skills Planet",
+        position: [4, 2, 1],
+        radius: 1.5,
+        route: "/skills",
+      },
+      {
+        name: "Contact Planet",
+        position: [-2, -1, 1],
+        radius: 0.6,
+        route: "/contact",
+      },
+    ],
+    []
+  );
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -51,6 +59,7 @@ function SpacecraftModel() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.code === "Space") {
@@ -58,14 +67,14 @@ function SpacecraftModel() {
           (planet) => proximityFlags.current[planet.name]
         );
         if (currentPlanet) {
-          navigate(currentPlanet.route);
+          navigate(currentPlanet.route); 
         }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [navigate, planets]);
+  }, [navigate, planets]); // ✅ Add 'navigate' to dependencies
 
   useEffect(() => {
     if (message) {
@@ -136,7 +145,7 @@ function SpacecraftModel() {
       />
       {displayedText && (
         <Text
-          position={[0, -0.3 , -2]}
+          position={[0, -0.3, -2]}
           fontSize={0.3}
           color="#00ff00"
           outlineColor="#00ff00"

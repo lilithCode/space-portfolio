@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 
@@ -6,7 +6,7 @@ function WarpTunnel({ onComplete }) {
   const starsRef = useRef();
   const warpSpeed = useRef({ value: 0 });
 
-  useEffect(() => {
+  const handleAnimation = useCallback(() => {
     gsap.to(warpSpeed.current, {
       value: 1,
       duration: 3,
@@ -24,6 +24,10 @@ function WarpTunnel({ onComplete }) {
     });
   }, [onComplete]);
 
+  useEffect(() => {
+    handleAnimation();
+  }, [handleAnimation]);
+
   useFrame(() => {
     if (!starsRef.current) return;
 
@@ -40,23 +44,28 @@ function WarpTunnel({ onComplete }) {
 
   return (
     <group ref={starsRef}>
-      {[...Array(6000)].map((_, i) => (
-        <mesh
-          key={i}
-          position={[
-            (Math.random() - 0.5) * 30,
-            (Math.random() - 0.5) * 30,
-            Math.random() * -50,
-          ]}
-        >
-          <sphereGeometry args={[0.02, 8, 8]} />
-          <meshLambertMaterial
-            emissive="white"
-            emissiveIntensity={1}
-            transparent
-          />
-        </mesh>
-      ))}
+      {[...Array(2500)].map(
+        (
+          _,
+          i // Reduced from 6000 to 2500 for better performance
+        ) => (
+          <mesh
+            key={i}
+            position={[
+              (Math.random() - 0.5) * 30,
+              (Math.random() - 0.5) * 30,
+              Math.random() * -50,
+            ]}
+          >
+            <sphereGeometry args={[0.02, 8, 8]} />
+            <meshLambertMaterial
+              emissive="white"
+              emissiveIntensity={1}
+              transparent
+            />
+          </mesh>
+        )
+      )}
     </group>
   );
 }

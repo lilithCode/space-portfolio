@@ -1,6 +1,6 @@
 import React from "react";
 import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim"; // Use slim version
+import { loadSlim } from "tsparticles-slim"; 
 
 const ParticleBackground = () => {
   const particlesInit = async (engine) => {
@@ -17,28 +17,43 @@ const ParticleBackground = () => {
         },
         particles: {
           number: {
-            value: 100,
+            value: 80,
+            density: {
+              enable: true,
+              area: 1000,
+            },
           },
           color: {
             value: [
-              "#B069DB",
-              "#ffffff",
-              "#9f45b0",
-              "#5E00A0",
-              "#c7f5ee",
-              "#840b0b",
+              "#8A2BE2",
+              "#1E90FF",
+              "#FF00FF",
+              "#FFFFFF",
+              
             ],
           },
-
           shape: {
             type: "circle",
           },
           opacity: {
-            value: 0.5,
+            value: 0.6,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 0.5,
+              opacity_min: 0.2,
+              sync: false,
+            },
           },
           size: {
-            value: 2,
+            value: { min: 0.5, max: 1.5 },
             random: true,
+            anim: {
+              enable: true,
+              speed: 1,
+              size_min: 0.5,
+              sync: false,
+            },
           },
           move: {
             enable: true,
@@ -47,6 +62,11 @@ const ParticleBackground = () => {
             random: false,
             straight: false,
             outModes: { default: "out" },
+            attract: {
+              enable: true,
+              rotateX: 600,
+              rotateY: 600,
+            },
           },
         },
         interactivity: {
@@ -55,11 +75,21 @@ const ParticleBackground = () => {
               enable: true,
               mode: "repulse",
             },
+            onClick: {
+              enable: true,
+              mode: "push",
+            },
           },
           modes: {
             repulse: {
-              distance: 100,
-              duration: 0.4,
+              distance: 120,
+              duration: 1,
+            },
+            bubble: {
+              distance: 150,
+              size: 4,
+              duration: 1,
+              opacity: 0.8,
             },
           },
         },
