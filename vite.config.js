@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+<<<<<<< HEAD
 import tailwindcss from "@tailwindcss/vite";
 import { createHtmlPlugin } from 'vite-plugin-html';
 
@@ -21,3 +22,11 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
   },
 });
+=======
+import tailwindcss from "@tailwindcss/vite"
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react() ,tailwindcss()],
+})
+>>>>>>> f2d5575 (Initial commit)
