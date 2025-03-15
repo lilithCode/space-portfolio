@@ -26,3 +26,4 @@ dist-ssr
 .vercel
 =======
 >>>>>>> f2d5575 (Initial commit)
+.env
