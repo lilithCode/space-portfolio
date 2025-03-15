@@ -52,7 +52,7 @@ const SkillsData = [
   {
     id: 11,
     title: "Docker",
-    src: "/SkillsIcons/Docker.svg",
+    src: "/SkillsIcons/Dockers.svg",
   },
   {
     id: 12,

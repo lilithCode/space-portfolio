@@ -6,15 +6,20 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 
 const Model = () => {
-  const gltf = useGLTF("/Planet.glb");
+  const gltf = useGLTF("/planet.glb");
   const planetRef = useRef();
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    if (planetRef.current) {
-      planetRef.current.rotation.y = time * 0.05;
-      planetRef.current.rotation.x = time * 0.01;
-    }
+   if (planetRef.current) {
+  const rotationSpeedX = 0.04; 
+  const rotationSpeedY = 0.3; 
+  const rotationSpeedZ = 0.01; 
+
+  planetRef.current.rotation.y = time * rotationSpeedY;
+  planetRef.current.rotation.x = time * rotationSpeedX;
+  planetRef.current.rotation.z = time * rotationSpeedZ;
+}
   });
 
   return <primitive ref={planetRef} object={gltf.scene} scale={1.5} />;
@@ -95,6 +100,7 @@ const Contact = () => {
                 </span>
                 <input
                   type="text"
+                  required
                   name="name"
                   value={form.name}
                   onChange={handleChange}
@@ -109,6 +115,7 @@ const Contact = () => {
                   Your Email
                 </span>
                 <input
+                  required
                   type="email"
                   name="email"
                   value={form.email}
@@ -128,6 +135,7 @@ const Contact = () => {
                 rows={5}
                 name="message"
                 value={form.message}
+                required
                 onChange={handleChange}
                 placeholder="Type your message..."
 
