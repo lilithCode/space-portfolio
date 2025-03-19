@@ -4,9 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://lilithCode.github.io/Portfolio/",
-  git add .
-git commit -m "deploy"
-git push origin main
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@react-spring/three": "^9.7.5",
