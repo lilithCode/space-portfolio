@@ -8,7 +8,7 @@ const About = () => {
   return (
     <div
       id="about"
-      className="relative flex flex-col items-center text-white text-center font-Exo2 min-h-screen overflow-hidden"
+      className="relative flex flex-col items-center text-white text-center font-Exo2  overflow-hidden md:min-h-screen"
     >
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <ParticleBackground />

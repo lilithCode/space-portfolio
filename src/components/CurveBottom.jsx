@@ -1,6 +1,6 @@
 const CurveBottom = () => {
   return (
-    <div className=" w-full h-[140px] overflow-hidden bg-transparent">
+    <div className=" w-full h-[100px] overflow-hidden bg-transparent md:h-[140px]">
       <svg
         viewBox="0 0 5740 200"
         className=" left-0 w-full h-full max-w-full "

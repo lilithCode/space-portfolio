@@ -69,7 +69,7 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="relative text-white  m-0 p-0 w-full flex flex-col items-center justify-center"
+      className="relative text-white  m-2 p-2 w-full min-h-screen flex flex-col items-center justify-center"
     >
       <ParticleBackground />
 
