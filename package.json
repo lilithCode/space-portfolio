@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://lilithCode.github.io/Portfolio/",
+  "homepage": "https://lilithCode.github.io/space-portfolio/",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
