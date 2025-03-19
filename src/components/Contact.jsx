@@ -69,11 +69,11 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="relative text-white  flex items-center justify-center my-45"
+      className="relative text-white  m-0 p-0 w-full flex flex-col items-center justify-center"
     >
       <ParticleBackground />
 
-      <div className="flex flex-col-reverse lg:flex-row w-full p-6 gap-2 mt-8 ">
+      <div className="flex flex-col-reverse lg:flex-row w-full p-6 gap-2 mt-8">
         <div className="w-full md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-xl">
           <div className="flex flex-col items-center mb-6">
             <h1 className="relative text-4xl md:text-5xl font-bold text-center z-10 mb-8">
