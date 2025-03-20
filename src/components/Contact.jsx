@@ -154,7 +154,7 @@ const Contact = () => {
 
 
         <div className="w-full md:w-1/2 flex justify-center items-center">
-          <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
+         <Canvas camera={{ position: [0, 0, 7], fov: 20 }}>
             <ambientLight intensity={1.5} />
             <directionalLight position={[5, 5, 5]} />
             <spotLight position={[10, 10, 10]} intensity={1.5} />
