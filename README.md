@@ -17,7 +17,7 @@ Welcome to my space-themed portfolio! This project showcases my skills, projects
 ---
 
 ## 🎮 Demo  
-🔗 Check out the live demo: [Full Stack Developer | Hamna .dev](https://spacetheme-portfolio-ljivznuw6-liliths-projects-ac0f877a.vercel.app/)
+🔗 Check out the live demo: [Full Stack Developer | Hamna .dev](https://spacetheme-portfolio-4cgq7erc4-liliths-projects-ac0f877a.vercel.app/)
 
 ---
 
