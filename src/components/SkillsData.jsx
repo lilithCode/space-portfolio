@@ -48,17 +48,11 @@ const SkillsData = [
     id: 10,
     title: "Git",
     src: "/SkillsIcons/Git.svg",
-<<<<<<< HEAD
-  }
-
-]
-export default SkillsData;
-=======
   },
   {
     id: 11,
     title: "Docker",
-    src: "/SkillsIcons/Docker.svg",
+    src: "/SkillsIcons/Dockers.svg",
   },
   {
     id: 12,
@@ -68,4 +62,3 @@ export default SkillsData;
   
 ];
 export default SkillsData;
->>>>>>> f2d5575 (Initial commit)
