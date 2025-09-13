@@ -59,7 +59,7 @@ const Project = () => {
                   </a>
                   {project.liveLink && (
                     <a
-                      href={project.link}
+                      href={project.liveLink}
                       className="text-center inline-block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white font-medium py-2 px-6 rounded-lg transition hover:from-blue-500 hover:via-purple-600 hover:to-pink-600"
                     >
                       Live app
