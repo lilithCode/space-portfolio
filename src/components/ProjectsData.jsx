@@ -11,6 +11,24 @@ const ProjectsData = [
   },
   {
     id: 2,
+    title: "Trova Tstra",
+    image: "/ProjectImages/TrovaTstra.png",
+    description:
+      "Trova Tstra is a Next.js project that integrates GSAP for smooth, interactive animations and Resend for reliable email handling, delivering a modern, dynamic, and responsive user experience.",
+    live: "https://github.com/lilithCode/trova-tstra.git",
+    liveLink: "https://trova-tstra-three.vercel.app/",
+  },
+  {
+    id: 3,
+    title: "Space Models 3D",
+    image: "/ProjectImages/SpaceModel.png",
+    description:
+      "A dynamic 3D space scene built with Three.js, featuring a starry background, orbiting planets, and an interactive rocket that follows the cursor for an engaging, animated experience.",
+    live: "https://github.com/lilithCode/3d-model-spacetheme.git",
+    liveLink: "https://3d-model-spacetheme.vercel.app/",
+  },
+  {
+    id: 4,
     title: "Todo app",
     image: "/ProjectImages/TodoApp.png",
     description:
@@ -19,7 +37,7 @@ const ProjectsData = [
     liveLink: "https://lilithcode.github.io/react-todo-app/",
   },
   {
-    id: 3,
+    id: 5,
     title: "PassFort\nPassword Manager",
     image: "/ProjectImages/PassFort.png",
     description:

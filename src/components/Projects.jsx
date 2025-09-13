@@ -28,7 +28,7 @@ const Project = () => {
         </h1>
       </div>
       <section className="container mx-auto py-32 px-16 md:px-16">
-        <div className="space-y-20 md:space-y-28">
+        <div className="space-y-20 md:space-y-60">
           {projectsData.map((project, index) => (
             <div
               key={project.id}
