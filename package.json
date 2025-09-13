@@ -18,6 +18,7 @@
     "@react-three/drei": "^10.0.4",
     "@react-three/fiber": "^9.1.0",
     "@tailwindcss/vite": "^4.0.14",
+    "@vercel/speed-insights": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",

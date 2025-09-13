@@ -22,8 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-<<<<<<< HEAD
+
+# Vercel deployment folder
 .vercel
-=======
->>>>>>> f2d5575 (Initial commit)
+
+# Environment variables
 .env
