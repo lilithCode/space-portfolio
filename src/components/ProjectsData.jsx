@@ -7,7 +7,7 @@ const ProjectsData = [
       "Beat Stream is a web-based music player, built with HTML, CSS, and JavaScriptthat. It dynamically fetches and plays songs from a structured JSON file. It supports categorized playlists, providing a seamless audio streaming experience.",
     link: "https://github.com/lilithCode/beatstream-music-player",
     liveLink:
-      "https://beatstream-5j83rmn68-liliths-projects-ac0f877a.vercel.app/",
+      "https://beatstream.vercel.app/",
   },
   {
     id: 2,
