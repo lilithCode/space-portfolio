@@ -1,36 +1,24 @@
 
-# Space-Themed Portfolio
+# Space Themed Portfolio
 
-Welcome to my space-themed portfolio! This project showcases my skills, projects, and contact information in a visually stunning interactive **3D environment** using **React, Three.js, and Vite**.
+**Welcome to my space-themed portfolio! This project showcases my skills, projects, and contact information in a visually stunning interactive **3D environment** using **React, Three.js, and Vite**.
+**---
 
-## 📌 Table of Contents  
-1️⃣ [Demo](#-demo)  
-2️⃣ [Features](#-features)  
-3️⃣ [Technologies Used](#-technologies-used)  
-4️⃣ [Installation](#-installation)  
-5️⃣ [Usage](#-usage)  
-6️⃣ [Project Structure](#-project-structure)  
-7️⃣ [Environment Variables](#-environment-variables)  
-8️⃣ [Contributing](#-contributing)  
-9️⃣ [License](#-license)  
+## Demo  
+🔗 Check out the live demo: https://spacetheme-portfolio.vercel.app/
 
 ---
 
-## 🎮 Demo  
-🔗 Check out the live demo: [Replace with actual link]  
+##  Features  
+- Interactive 3D environment with rotating stars & planets 
+- Smooth Navigation (About, Projects, Skills & Contact)
+- Fluid Animations & Transitions 
+- Fully Responsive Design 
+- Functional Contact Form with EmailJS 
 
 ---
 
-## ✨ Features  
-✅ Interactive 3D environment with rotating stars & planets 
-✅ Smooth Navigation (About, Projects, Skills & Contact) 
-✅ Fluid Animations & Transitions 
-✅ Fully Responsive Design 
-✅ Functional Contact Form with EmailJS 
-
----
-
-## 🛠️ Technologies Used  
+## Technologies Used  
 - **React**: JavaScript library for UI development  
 - **Three.js**: JavaScript 3D library  
 - **@react-three/fiber**: React renderer for Three.js  
@@ -41,12 +29,12 @@ Welcome to my space-themed portfolio! This project showcases my skills, projects
 
 ---
 
-## 📥 Installation  
+## Installation  
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/lilithCode/Portfolio.git
-    cd portfolio
+    git clone https://github.com/lilithCode/space-portfolio.git
+    cd space-portfolio
     ```
 
 2. Install the dependencies:
@@ -63,7 +51,7 @@ Welcome to my space-themed portfolio! This project showcases my skills, projects
 
 
 
-## 🚀 Usage  
+## How to start  
 
 ### Start development server  
 ```bash
