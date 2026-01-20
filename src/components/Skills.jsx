@@ -1,24 +1,17 @@
-
-import React, { useMemo } from "react";
-import ParticleBackground from "./ParticleBackground";
 import SkillsData from "./SkillsData";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 const Skills = () => {
-  
   const delays = useMemo(
-    () => SkillsData.map(() => Math.random() * 0.5 + 0.2), 
-    []
+    () => SkillsData.map(() => Math.random() * 0.5 + 0.2),
+    [],
   );
 
   return (
     <div id="skills" className="relative text-white  scroll-mt-24">
-      <div className="absolute inset-0 -z-10">
-        <ParticleBackground />
-      </div>
-
       <div className="flex flex-col mt-32 mb-8 mx-auto items-center">
-        <h1 className="relative text-6xl md:text-7xl font-bold tracking-wide text-center z-10">
+        <h2 className="relative text-6xl md:text-7xl font-bold tracking-wide text-center z-10">
           <motion.span
             initial={{ width: "0%" }}
             whileInView={{ width: "100%" }}
@@ -27,7 +20,7 @@ const Skills = () => {
             className="absolute -z-10 left-[160px] transform -translate-x-1/2 bottom-[-10px] block w-full h-10 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
           ></motion.span>
           Skills
-        </h1>
+        </h2>
       </div>
 
       <div className="flex justify-center">

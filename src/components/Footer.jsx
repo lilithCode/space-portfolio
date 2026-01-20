@@ -18,19 +18,22 @@ const Footer = () => {
       </motion.div>
 
       <div className="flex gap-16">
+        /* Space-portfolio/portfolio/src/components/Footer.jsx */
         <a
           href="https://github.com/lilithCode"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-400 transition"
+          className="..."
+          aria-label="Visit my GitHub profile" 
         >
           <Github size={32} />
         </a>
         <a
-          href="https://www.linkedin.com/in/miss-lilith-b863432a4/"
+          href="https://www.linkedin.com/in/..."
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-400 transition"
+          className="..."
+          aria-label="Visit my LinkedIn profile" 
         >
           <Linkedin size={32} />
         </a>

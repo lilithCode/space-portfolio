@@ -1,8 +1,8 @@
-import React from "react";
-import { motion } from "framer-motion";
 import CurveBottom from "./CurveBottom";
 import Navbar from "./Navbar";
 import ParticleBackground from "./ParticleBackground";
+import { motion } from "framer-motion";
+
 
 const Home = () => {
   return (

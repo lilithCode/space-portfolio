@@ -1,8 +1,5 @@
-import React from "react";
-import ParticleBackground from "./ParticleBackground";
 import avatar from "/avatar.png";
 import { motion } from "framer-motion";
-
 
 const About = () => {
   return (
@@ -10,13 +7,9 @@ const About = () => {
       id="about"
       className="relative flex flex-col items-center text-white text-center font-Exo2 min-h-screen overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-full h-full -z-10">
-        <ParticleBackground />
-      </div>
-
       <div className="p-6 md:p-10 mt-10 z-10">
         <div className="flex flex-col mt-10 mb-16 mx-auto items-center">
-          <h1 className="relative text-5xl md:text-6xl lg:text-7xl font-bold tracking-wide text-center">
+          <h2 className="relative text-5xl md:text-6xl lg:text-7xl font-bold tracking-wide text-center">
             About Me
             <motion.span
               initial={{ width: "0%", x: "0" }}
@@ -25,7 +18,7 @@ const About = () => {
               viewport={{ once: true }}
               className="absolute -z-10 left-1/2 transform -translate-x-1/2 bottom-[-5px] block h-10 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
             ></motion.span>
-          </h1>
+          </h2>
           ;
         </div>
 

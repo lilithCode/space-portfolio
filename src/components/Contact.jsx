@@ -1,22 +1,23 @@
-import React, { useRef, useState } from "react";
-import ParticleBackground from "./ParticleBackground";
+import React, { useRef, useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF, Stage } from "@react-three/drei";
 
+// Separate Model component to handle 3D logic
 const Model = () => {
-  const gltf = useGLTF("/Planet.glb");
+  const { scene } = useGLTF("/Planet.glb");
   const planetRef = useRef();
 
+  // Optimized rotation animation
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
     if (planetRef.current) {
-      planetRef.current.rotation.y = time * 0.15; 
-      planetRef.current.rotation.x = time * 0.03; 
+      planetRef.current.rotation.y = time * 0.15;
+      planetRef.current.rotation.x = time * 0.03;
     }
   });
 
-  return <primitive ref={planetRef} object={gltf.scene} scale={1.5} />;
+  return <primitive ref={planetRef} object={scene} scale={1.5} />;
 };
 
 const Contact = () => {
@@ -29,137 +30,136 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-      try {
-        const response = await fetch("/api/send-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: form.name,
-            email: form.email,
-            message: form.message,
-          }),
-        });
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          setLoading(false);
-          alert("Thank you! I will get back to you soon.");
-          setForm({ name: "", email: "", message: "" });
-        } else {
-          setLoading(false);
-          alert(`Something went wrong: ${data.error || "Please try again."}`);
-        }
-      } catch (error) {
-        setLoading(false);
-        console.error("Fetch Error:", error);
-        alert("Failed to connect to the server. Please try again.");
+      if (response.ok) {
+        alert("Thank you! I will get back to you soon.");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        alert("Something went wrong. Please try again.");
       }
-    };
+    } catch (error) {
+      console.error("Fetch Error:", error);
+      alert("Failed to connect to the server.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div
+    <section
       id="contact"
-      className="relative text-white  flex items-center justify-center my-45"
+      className="relative text-white flex items-center justify-center my-32 md:my-45"
     >
-      <ParticleBackground />
+      {/* ParticleBackground removed from here to App.jsx for performance */}
 
-      <div className="flex flex-col-reverse lg:flex-row w-full p-6 gap-2 mt-8 ">
-        <div className="w-full md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-xl">
-          <div className="flex flex-col items-center mb-6">
-            <h1 className="relative text-4xl md:text-5xl font-bold text-center z-10 mb-8">
+      <div className="flex flex-col-reverse lg:flex-row w-full max-w-7xl p-6 gap-10">
+        {/* Form Container */}
+        <div className="w-full lg:w-1/2 p-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700">
+          <div className="flex flex-col items-center mb-8">
+            <h2 className="relative text-4xl md:text-5xl font-bold text-center z-10">
               <motion.span
                 initial={{ width: "0%" }}
                 whileInView={{ width: "100%" }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
                 viewport={{ once: true }}
-                className="absolute -z-10 left-[75%] transform -translate-x-1/2 bottom-[-9px] block w-full h-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+                className="absolute -z-10 left-0 bottom-1 block h-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-50"
               />
-              Contact
-            </h1>
+              Contact Me
+            </h2>
           </div>
 
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <label className="flex flex-col">
-                <span className="text-gray-300 font-medium mb-1">
-                  Your Name
-                </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <label className="flex flex-col gap-2">
+                <span className="text-gray-300 font-medium">Name</span>
                 <input
                   type="text"
                   name="name"
+                  required
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
-                  className="bg-gray-900 py-3 px-4 placeholder-gray-400 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                  className="bg-gray-900 py-3 px-4 text-white rounded-lg border border-gray-700 focus:border-purple-500 outline-none transition-all"
                 />
               </label>
 
-              <label className="flex flex-col">
-
-                <span className="text-gray-300 font-medium mb-1">
-                  Your Email
-                </span>
+              <label className="flex flex-col gap-2">
+                <span className="text-gray-300 font-medium">Email</span>
                 <input
                   type="email"
                   name="email"
+                  required
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-
-                  className="bg-gray-900 py-3 px-4 placeholder-gray-400 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                  className="bg-gray-900 py-3 px-4 text-white rounded-lg border border-gray-700 focus:border-purple-500 outline-none transition-all"
                 />
               </label>
             </div>
 
-            <label className="flex flex-col">
-              <span className="text-gray-300 font-medium mb-1">
-                Your Message
-              </span>
+            <label className="flex flex-col gap-2">
+              <span className="text-gray-300 font-medium">Message</span>
               <textarea
                 rows={5}
                 name="message"
+                required
                 value={form.message}
                 onChange={handleChange}
-                placeholder="Type your message..."
-
-                className="bg-gray-900 py-3 px-4 placeholder-gray-400 text-white rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                placeholder="How can I help you?"
+                className="bg-gray-900 py-3 px-4 text-white rounded-lg border border-gray-700 focus:border-purple-500 outline-none transition-all resize-none"
               />
             </label>
 
             <button
               type="submit"
-              className="m-auto w-40 bg-gradient-to-r from-blue-500 to-purple-500 py-3 px-6 rounded-lg text-white font-bold shadow-lg hover:from-purple-500 hover:to-pink-500 transition-all duration-300"
+              disabled={loading}
+              className="mt-4 w-full md:w-40 self-center bg-gradient-to-r from-blue-500 to-purple-600 py-3 px-6 rounded-lg text-white font-bold shadow-lg hover:from-purple-600 hover:to-pink-500 transition-all duration-300 disabled:opacity-50"
             >
-              {loading ? "Sending..." : "Send"}
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
 
+        {/* 3D Canvas Container */}
+        <div className="w-full lg:w-1/2 h-[350px] md:h-[500px] cursor-grab active:cursor-grabbing">
+          <Suspense
+            fallback={
+              <div className="flex h-full items-center justify-center text-purple-400 font-bold">
+                Loading Space...
+              </div>
+            }
+          >
+            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+              <ambientLight intensity={0.5} />
+              <pointLight position={[10, 10, 10]} intensity={1} />
+              <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} />
 
-        <div className="w-full md:w-1/2 flex justify-center items-center">
-          <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
-            <ambientLight intensity={8} />
-            <directionalLight position={[7, 5, 5]} intensity={2.5} />
-            <spotLight position={[10, 10, 10]} intensity={8} />
-            <Model />
-            <OrbitControls
-              enableZoom={false}
-              minDistance={2}
-              maxDistance={10}
-            />
-          </Canvas>
+              <Model />
+
+              <OrbitControls
+                enableZoom={false}
+                autoRotate
+                autoRotateSpeed={0.5}
+              />
+            </Canvas>
+          </Suspense>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
