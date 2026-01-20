@@ -134,7 +134,6 @@ const Contact = () => {
           </form>
         </div>
 
-        {/* 3D Canvas Container */}
         <div className="w-full lg:w-1/2 h-[350px] md:h-[500px] cursor-grab active:cursor-grabbing">
           <Suspense
             fallback={
@@ -143,11 +142,10 @@ const Contact = () => {
               </div>
             }
           >
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-              <ambientLight intensity={0.5} />
-              <pointLight position={[10, 10, 10]} intensity={1} />
-              <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} />
-
+            <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
+              <ambientLight intensity={8} />
+              <directionalLight position={[7, 5, 5]} intensity={2.5} />
+              <spotLight position={[10, 10, 10]} intensity={8} />
               <Model />
 
               <OrbitControls

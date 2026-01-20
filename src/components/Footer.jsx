@@ -18,7 +18,6 @@ const Footer = () => {
       </motion.div>
 
       <div className="flex gap-16">
-        /* Space-portfolio/portfolio/src/components/Footer.jsx */
         <a
           href="https://github.com/lilithCode"
           target="_blank"
