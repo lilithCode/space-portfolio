@@ -1,11 +1,11 @@
 
 # Space Themed Portfolio
 
-Welcome to my space-themed portfolio! This project showcases my skills, projects, and contact information in a visually stunning interactive **3D environment** using **React, Three.js, and Vite**.
----
+**Welcome to my space-themed portfolio! This project showcases my skills, projects, and contact information in a visually stunning interactive **3D environment** using **React, Three.js, and Vite**.
+**---
 
 ## Demo  
-🔗 Check out the live demo: [Replace with actual link]  
+🔗 Check out the live demo: https://spacetheme-portfolio.vercel.app/
 
 ---
 
@@ -33,8 +33,8 @@ Welcome to my space-themed portfolio! This project showcases my skills, projects
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/lilithCode/Portfolio.git
-    cd portfolio
+    git clone https://github.com/lilithCode/space-portfolio.git
+    cd space-portfolio
     ```
 
 2. Install the dependencies:
