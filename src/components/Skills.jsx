@@ -7,7 +7,6 @@ const Skills = () => {
     () => SkillsData.map(() => Math.random() * 0.5 + 0.2),
     [],
   );
-
   return (
     <div id="skills" className="relative text-white  scroll-mt-24">
       <div className="flex flex-col mt-32 mb-8 mx-auto items-center">
