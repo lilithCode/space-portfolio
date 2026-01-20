@@ -1,5 +1,15 @@
 const ProjectsData = [
   {
+    id: 0,
+    title: "Lilith's Canvas",
+    image: "/ProjectImages/Lilith-canvas.png",
+    description:
+      "Lilith’s Canvas is a drawing recognition web app built with Next.js, Tailwind CSS and TensorFlow.js. Draw on the in browser canvas and Lilith will try to guess your sketch in real time using QuickDraw model, a 345-class CNN model.",
+    link: "https://github.com/lilithCode/canva-predictor",
+    liveLink: "https://lilith-canvas.vercel.app/",
+  },
+  {
+
     id: 1,
     title: "Beat Stream\n Music Player",
     image: "/ProjectImages/BeatStream.png",
