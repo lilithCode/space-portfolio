@@ -49,6 +49,7 @@ const Project = () => {
                 <div className="flex flex-col gap-3 w-50 m-auto">
                   <a
                     href={project.link}
+                    target="_blank"
                     aria-label={`Learn more about ${project.title}`}
                     className="text-center inline-block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white font-medium py-2 px-6 rounded-lg transition hover:from-blue-500 hover:via-purple-600 hover:to-pink-600"
                   >
@@ -57,6 +58,7 @@ const Project = () => {
                   {project.liveLink && (
                     <a
                       href={project.liveLink}
+                      target="_blank"
                       className="text-center inline-block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white font-medium py-2 px-6 rounded-lg transition hover:from-blue-500 hover:via-purple-600 hover:to-pink-600"
                     >
                       Live app
