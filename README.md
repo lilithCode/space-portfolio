@@ -2,7 +2,6 @@
 # Space Themed Portfolio
 
 **Welcome to my space-themed portfolio! This project showcases my skills, projects, and contact information in a visually stunning interactive **3D environment** using **React, Three.js, and Vite**.
-**---
 
 ## Demo  
 🔗 Check out the live demo: https://spacetheme-portfolio.vercel.app/

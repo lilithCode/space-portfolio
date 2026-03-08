@@ -13,7 +13,6 @@ function App() {
       <div className="fixed inset-0 -z-20">
         <ParticleBackground />
       </div>
-
       <main>
         <Home />
         <About />

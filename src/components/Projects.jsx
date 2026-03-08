@@ -1,7 +1,7 @@
 
 import projectsData from "./ProjectsData";
 import { motion } from "framer-motion";
-
+// List the projects items
 
 const Project = () => {
 
