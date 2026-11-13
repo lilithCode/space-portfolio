@@ -399,7 +399,9 @@ export default function Trajectory() {
       turning = reduce ? 0 : delta;
       angle += reduce ? delta : delta * 0.2;
 
-      const size = lerp(BASE_SCALE, LAND_SCALE, smooth(clamp((current - (g.length - GROW)) / GROW, 0, 1)));
+      const landing = smooth(clamp((current - (g.length - GROW)) / GROW, 0, 1));
+      const launch = 1 - smooth(clamp(current / GROW, 0, 1));
+      const size = lerp(BASE_SCALE, LAND_SCALE, Math.max(landing, launch));
       const lift = (size - BASE_SCALE) * TAIL * smooth(approach);
       rocketRef.current.setAttribute(
         "transform",
