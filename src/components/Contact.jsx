@@ -1,164 +1,167 @@
-import React, { useRef, useState, Suspense } from "react";
-import { motion } from "framer-motion";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stage } from "@react-three/drei";
+import { Component, lazy, Suspense, useCallback, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import Section from "./Section";
+import { Reveal } from "./Reveal";
 
-// Separate Model component to handle 3D logic
-const Model = () => {
-  const { scene } = useGLTF("/Planet.glb");
-  const planetRef = useRef();
+import PlanetFallback from "./PlanetFallback";
 
-  // Optimized rotation animation
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    if (planetRef.current) {
-      planetRef.current.rotation.y = time * 0.15;
-      planetRef.current.rotation.x = time * 0.03;
-    }
-  });
+const PlanetScene = lazy(() => import("./PlanetScene"));
 
-  return <primitive ref={planetRef} object={scene} scale={1.5} />;
+const canUseWebGL = () => {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
 };
 
-const Contact = () => {
-  const formRef = useRef();
+class SceneBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(err) {
+    console.warn("Planet scene unavailable, showing the drawn planet instead.", err);
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+const STATUS = {
+  sending: "Sending…",
+  sent: "Message sent. I'll get back to you soon.",
+  failed: "Your message didn't send. Check your connection and try again.",
+};
+
+export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("idle");
+  const sceneRef = useRef(null);
+  const nearScene = useInView(sceneRef, { once: true, margin: "1800px 0px" });
+  const [webgl] = useState(canUseWebGL);
+  const [sceneReady, setSceneReady] = useState(false);
+  const handleReady = useCallback(() => setSceneReady(true), []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
+  const update = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
+    setStatus("sending");
     try {
-      const response = await fetch("/api/send-email", {
+      const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
-      if (response.ok) {
-        alert("Thank you! I will get back to you soon.");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Fetch Error:", error);
-      alert("Failed to connect to the server.");
-    } finally {
-      setLoading(false);
+      if (!res.ok) throw new Error(`Status ${res.status}`);
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Contact form:", err);
+      setStatus("failed");
     }
   };
 
   return (
-    <section
+    <Section
       id="contact"
-      className="relative text-white flex items-center justify-center my-32 md:my-45"
+      index={5}
+      title="Let's talk"
+      intro="Have a project, a role, or an idea as odd as an invisible keyboard? Send me a message."
     >
-      {/* ParticleBackground removed from here to App.jsx for performance */}
-
-      <div className="flex flex-col-reverse lg:flex-row w-full max-w-7xl p-6 gap-10">
-        {/* Form Container */}
-        <div className="w-full lg:w-1/2 p-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700">
-          <div className="flex flex-col items-center mb-8">
-            <h2 className="relative text-4xl md:text-5xl font-bold text-center z-10">
-              <motion.span
-                initial={{ width: "0%" }}
-                whileInView={{ width: "100%" }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="absolute -z-10 left-0 bottom-1 block h-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-50"
-              />
-              Contact Me
-            </h2>
-          </div>
-
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <label className="flex flex-col gap-2">
-                <span className="text-gray-300 font-medium">Name</span>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="bg-gray-900 py-3 px-4 text-white rounded-lg border border-gray-700 focus:border-purple-500 outline-none transition-all"
-                />
-              </label>
-
-              <label className="flex flex-col gap-2">
-                <span className="text-gray-300 font-medium">Email</span>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  className="bg-gray-900 py-3 px-4 text-white rounded-lg border border-gray-700 focus:border-purple-500 outline-none transition-all"
-                />
-              </label>
-            </div>
-
-            <label className="flex flex-col gap-2">
-              <span className="text-gray-300 font-medium">Message</span>
-              <textarea
-                rows={5}
-                name="message"
+      <div className="indent grid items-center gap-14 lg:grid-cols-12">
+        <Reveal as="form" onSubmit={submit} className="space-y-8 lg:col-span-6">
+          <div className="grid gap-8 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-sm font-semibold text-lilac">Name</span>
+              <input
+                className="field"
+                type="text"
+                name="name"
+                autoComplete="name"
                 required
-                value={form.message}
-                onChange={handleChange}
-                placeholder="How can I help you?"
-                className="bg-gray-900 py-3 px-4 text-white rounded-lg border border-gray-700 focus:border-purple-500 outline-none transition-all resize-none"
+                value={form.name}
+                onChange={update}
+                placeholder="Your name"
               />
             </label>
+            <label className="block">
+              <span className="text-sm font-semibold text-lilac">Email</span>
+              <input
+                className="field"
+                type="email"
+                name="email"
+                autoComplete="email"
+                required
+                value={form.email}
+                onChange={update}
+                placeholder="you@example.com"
+              />
+            </label>
+          </div>
+          <label className="block">
+            <span className="text-sm font-semibold text-lilac">Message</span>
+            <textarea
+              className="field resize-none"
+              name="message"
+              rows={5}
+              required
+              value={form.message}
+              onChange={update}
+              placeholder="What would you like to build?"
+            />
+          </label>
 
+          <div className="flex flex-wrap items-center gap-6">
             <button
               type="submit"
-              disabled={loading}
-              className="mt-4 w-full md:w-40 self-center bg-gradient-to-r from-blue-500 to-purple-600 py-3 px-6 rounded-lg text-white font-bold shadow-lg hover:from-purple-600 hover:to-pink-500 transition-all duration-300 disabled:opacity-50"
+              disabled={status === "sending"}
+              className="rounded-full bg-star px-8 py-3.5 text-lg font-semibold text-void shadow-[0_18px_50px_-18px_rgb(176_105_219/0.9)] transition-all hover:bg-lilac disabled:opacity-60"
             >
-              {loading ? "Sending..." : "Send Message"}
+              {status === "sending" ? STATUS.sending : "Send message"}
             </button>
-          </form>
-        </div>
+            <AnimatePresence mode="wait">
+              {(status === "sent" || status === "failed") && (
+                <motion.p
+                  key={status}
+                  role="status"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className={status === "sent" ? "text-comet" : "text-[#ff9fcf]"}
+                >
+                  {STATUS[status]}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+        </Reveal>
 
-        <div className="w-full lg:w-1/2 h-[350px] md:h-[500px] cursor-grab active:cursor-grabbing">
-          <Suspense
-            fallback={
-              <div className="flex h-full items-center justify-center text-purple-400 font-bold">
-                Loading Space...
-              </div>
-            }
+        <div
+          ref={sceneRef}
+          className={`relative h-[380px] sm:h-[480px] lg:col-span-6 lg:-my-16 lg:h-[640px] ${sceneReady ? "cursor-grab active:cursor-grabbing" : ""}`}
+          aria-hidden="true"
+        >
+          <div
+            className={`absolute inset-[6%] transition-opacity duration-700 ${sceneReady ? "opacity-0" : "opacity-100"}`}
           >
-            <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
-              <ambientLight intensity={8} />
-              <directionalLight position={[7, 5, 5]} intensity={2.5} />
-              <spotLight position={[10, 10, 10]} intensity={8} />
-              <Model />
-
-              <OrbitControls
-                enableZoom={false}
-                autoRotate
-                autoRotateSpeed={0.5}
-              />
-            </Canvas>
-          </Suspense>
+            <PlanetFallback />
+          </div>
+          {webgl && nearScene && (
+            <SceneBoundary>
+              <Suspense fallback={null}>
+                <div
+                  className={`absolute inset-0 transition-opacity duration-1000 ${sceneReady ? "opacity-100" : "opacity-0"}`}
+                >
+                  <PlanetScene onReady={handleReady} />
+                </div>
+              </Suspense>
+            </SceneBoundary>
+          )}
         </div>
       </div>
-    </section>
+    </Section>
   );
-};
-
-export default Contact;
+}

@@ -8,9 +8,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
           motion: ["framer-motion", "gsap"],
-          particles: ["tsparticles-slim", "react-tsparticles"],
         },
       },
     },
