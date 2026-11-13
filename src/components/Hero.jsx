@@ -101,7 +101,12 @@ export default function Hero({ ready }) {
             {letters.map((ch, i) => (
               <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.08em]">
                 <motion.span
-                  className="inline-block"
+                  className="inline-block bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(90deg, #e2d0ff 0%, #c9a4f5 50%, #a865d8 100%)",
+                    backgroundSize: `${letters.length * 100}% 100%`,
+                    backgroundPosition: `${letters.length > 1 ? (i / (letters.length - 1)) * 100 : 0}% 0`,
+                  }}
                   variants={{
                     hidden: { y: "105%", rotate: 6 },
                     show: { y: "0%", rotate: 0, transition: { duration: 1.1, ease } },

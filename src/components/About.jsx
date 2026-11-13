@@ -28,9 +28,11 @@ export default function About() {
             as="p"
             className="max-w-[36rem] font-display font-normal text-2xl leading-snug tracking-[-0.01em] text-star md:text-[2rem]"
           >
-            I'm {site.name}. I'm a full stack MERN developer who builds AI products
-            that people actually want to use. I ship things that
-            work, and I ship them fast. My work is open source, and I love
+            I'm <span className="text-lilac">{site.name}</span>. I'm a{" "}
+            <span className="text-comet">full stack MERN developer</span> who builds{" "}
+            <span className="text-lilac">AI products</span>
+            {" "}that people actually want to use. I ship things that
+            work, and I ship them fast. My work is <span className="text-comet">open source</span>, and I love
             mentoring others to help them grow as engineers.
           </Reveal>
           <Reveal
@@ -38,11 +40,11 @@ export default function About() {
             delay={0.1}
             className="mt-6 max-w-[34rem] text-lg text-mist"
           >
-            Side life: I'm an Asian girl who's almost 20. I love reading
-            Agatha Christie mystery novels, painting (sometimes making a mess
+            Side life: I'm an Asian girl who's almost 20. I love reading{" "}
+            <span className="text-lilac">Agatha Christie</span> mystery novels, painting (sometimes making a mess
             and calling it abstract art), spending questionable amounts of time
             playing video games and watching anime. I also love messing around
-            with electronics (ESP32 experiments, anyone?) and picking up hobbies
+            with electronics (<span className="text-comet">ESP32</span> experiments, anyone?) and picking up hobbies
             I probably don't need but absolutely want to try. I just can't stick
             to one thing for too long :){" "}
           </Reveal>

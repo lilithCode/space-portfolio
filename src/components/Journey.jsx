@@ -1,6 +1,33 @@
 import Section from "./Section";
 import { Reveal } from "./Reveal";
+import Highlight from "./Highlight";
 import journey from "../data/journey";
+
+const PROJECT = "text-comet";
+const TECH = "text-lilac";
+const TERMS = {
+  PassFort: PROJECT,
+  BeatStream: PROJECT,
+  "Trova Tstra": PROJECT,
+  "Lilith's Canvas": PROJECT,
+  Amadeus: PROJECT,
+  Iris: PROJECT,
+  Echo: PROJECT,
+  Jinx: PROJECT,
+  "0Keys": PROJECT,
+  "C++": TECH,
+  React: TECH,
+  Express: TECH,
+  MongoDB: TECH,
+  "Three.js": TECH,
+  "Next.js": TECH,
+  GSAP: TECH,
+  "TensorFlow.js": TECH,
+  "Llama-3 8B": TECH,
+  Unsloth: TECH,
+  "Steins;Gate": TECH,
+  "retrieval-augmented generation": TECH,
+};
 
 export default function Journey() {
   return (
@@ -24,7 +51,7 @@ export default function Journey() {
                 <Reveal>
                   <p className="text-sm font-semibold text-lilac">{step.date}</p>
                   <h3 className="mt-1 font-display text-[1.75rem] leading-tight md:text-[2rem]">{step.title}</h3>
-                  <p className={`mt-3 max-w-[30rem] text-star/80 ${right ? "max-lg:ml-auto" : "lg:ml-auto"}`}>{step.text}</p>
+                  <p className={`mt-3 max-w-[30rem] text-star/80 ${right ? "max-lg:ml-auto" : "lg:ml-auto"}`}><Highlight text={step.text} terms={TERMS} /></p>
                 </Reveal>
               </div>
               <span
